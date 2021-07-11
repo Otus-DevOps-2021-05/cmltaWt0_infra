@@ -1,0 +1,21 @@
+#cloud-config
+packages:
+  git
+
+users:
+  - default
+  - name: yc-user
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDhhKm8+XQH7oAaeIeDhgPx0pk49M8OdxnJ4bzbPRT39u3wcX1JY6fKV2lWX30BeOjf+h7qX/3aVQz9AOGI4xOWT7RGlcnEjvLTc9qLZnmGUi60e7PJYqNCvWYy26g+qAUFMfnUwHGfNH3ecHQ44mm80eEFeGcAW9vtjJWbCm3RSTp6ly/9kC0wU7iDhyBxOZOJVcak6t5DjC6TEa7JshKQIgy5oSvXFoLPCPDH21FBwpmQ/+YPvMh/ME29spzFxhb8n88q4ncHVZGoQCguocxJFLupKifxTPcepCx3SkpYbQJSat9bPVylvgTCkE8jRfDflJvCZ9SWhKJfkCRI+AagfDS9QLy9B5mHbLGQV/EPH4yoGQJKiQT6rHnlrSYatTk8/XMIeIsC4Td8L28KMwozEB0Y1Q95MqsvrkfrhETFFwXjUiFLX6S/npUKXjRGjKNlBybl6UYRAJHxlaVMXYFhrhUvZriyslbATqivh8rALVYSRKiXq6J5nFVNoDIt0ks= appuser
+
+runcmd:
+  - wget https://raw.githubusercontent.com/Otus-DevOps-2021-05/cmltaWt0_infra/cloud-testapp/install_ruby.sh
+  - sh install_ruby.sh
+
+  - wget https://raw.githubusercontent.com/Otus-DevOps-2021-05/cmltaWt0_infra/cloud-testapp/install_mongodb.sh
+  - sh install_mongodb.sh
+
+  - wget https://raw.githubusercontent.com/Otus-DevOps-2021-05/cmltaWt0_infra/cloud-testapp/deploy.sh
+  - sh deploy.sh
