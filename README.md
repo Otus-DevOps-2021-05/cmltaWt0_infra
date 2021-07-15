@@ -136,3 +136,81 @@ testapp_port = 9292
 --metadata serial-port-enable=1 \
 --metadata-from-file user-data=metadata.yaml
 ```
+
+
+Homework Packer
+===
+
+
+Что было сделано:
+- перенесены все скрипты из предыдущего ДЗ в папку `config-scripts`
+- Создан `reddit-base` (packer/ubuntu16.json) образ с установленными mongod и ruby
+- Параметризированы почти все переменные (packer/variables.json)
+- Запущен VPC на базе этого образа
+- Вручную донастроен reddit app с puma сервером
+- Создан Immutable образ, на базе `reddit-base`, c устанновленным приложением reddit app (packer/immutable.json)
+- Параметризированы почти все переменные (packer/variables-full.json)
+- Сконфигурирован `systemd` сервис `reddit.service` для автоматического старта приложения в инстансе на баще образа r`eddit-full` (packer/files/reddit.service)
+- Создан скрипт `config-scripts/create-reddit-vm.sh` для автоматического создания VPC на базе образа `reddit-full`
+
+Deploy instructions:
+
+```
+bash config-scripts/create-reddit-vm.sh
+```
+
+
+YC command to create VPC:
+
+```
+yc compute instance create \
+    --name reddit-app \
+    --hostname reddit-app \
+    --memory=2 \
+    --create-boot-disk image-id=fd8a2srn01nl87m96egi,size=10GB \
+    --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
+    --metadata serial-port-enable=1
+```
+
+Создан VPC для проверки ДЗ:
+
+```
+➜  cmltaWt0_infra git:(packer-base) bash config-scripts/create-reddit-vm.sh
+done (1m7s)
+id: xxxxxxxxxxxxxxxxxx
+folder_id: xxxxxxxxxxxxxxxxxx
+created_at: "2021-07-15T08:33:58Z"
+name: reddit-app
+zone_id: ru-central1-a
+platform_id: standard-v2
+resources:
+  memory: "2147483648"
+  cores: "2"
+  core_fraction: "100"
+status: RUNNING
+boot_disk:
+  mode: READ_WRITE
+  device_name: xxxxxxxxxxxxxxxxxx
+  auto_delete: true
+  disk_id: xxxxxxxxxxxxxxxxxx
+network_interfaces:
+- index: "0"
+  mac_address: xxxxxxxxxxxxxxxxxx
+  subnet_id: xxxxxxxxxxxxxxxxxx
+  primary_v4_address:
+    address: x.x.x.x
+    one_to_one_nat:
+      address: 178.154.240.243
+      ip_version: IPV4
+fqdn: reddit-app.ru-central1.internal
+scheduling_policy: {}
+network_settings:
+  type: STANDARD
+placement_policy: {}
+```
+
+Для проверки:
+
+```
+open http://178.154.240.243:9292
+```

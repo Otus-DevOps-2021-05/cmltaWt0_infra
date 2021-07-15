@@ -1,0 +1,10 @@
+{
+    "folder_id":                "xxxxxxxxxxxxxxxxxxxx",
+    "subnet_id":                "xxxxxxxxxxxxxxxxxxxx",
+    "zone":                     "ru-central1-a",
+    "platform_id":              "standard-v1",
+    "source_image_id":          "<desired reddit-base image id>",
+    "ssh_username":             "ubuntu",
+    "env":                      "dev",
+    "image_family":             "reddit-full"
+}
