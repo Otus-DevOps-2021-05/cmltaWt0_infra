@@ -1,0 +1,17 @@
+[Unit]
+Description=Puma HTTP Server
+After=network.target
+After=mongod.service
+Requires=mongod.service
+
+[Service]
+Type=notify
+WatchdogSec=10
+
+WorkingDirectory=/home/ubuntu/reddit
+
+ExecStart=/usr/local/bin/puma
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
