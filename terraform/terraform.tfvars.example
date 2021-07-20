@@ -1,0 +1,7 @@
+cloud_id                      = "xxxxxxxxxxxxxxxxxxxx"
+folder_id                     = "xxxxxxxxxxxxxxxxxxxx"
+subnet_id                     = "xxxxxxxxxxxxxxxxxxxx"
+image_id                      = "xxxxxxxxxxxxxxxxxxxx"
+public_key_path               = "/home/ubuntu/.ssh/ubuntu.pub"
+private_key_path              = "/home/ubuntu/.ssh/ubuntu"
+service_account_key_file_path = "./files/key-dev.json"
