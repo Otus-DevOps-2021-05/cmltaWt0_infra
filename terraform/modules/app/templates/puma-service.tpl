@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=ubuntu
-Environment=DATABASE_URL=x.x.x.x
+Environment=DATABASE_URL=${db_internal_ip}
 WorkingDirectory=/home/ubuntu/reddit
 ExecStart=/bin/bash -lc 'puma'
 Restart=always
