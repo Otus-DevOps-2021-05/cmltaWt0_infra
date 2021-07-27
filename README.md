@@ -269,3 +269,61 @@ resource "yandex_storage_bucket" "terraform" {
 
 - отсутствие возможности использовать переменные в секции `backend`, нужно только хардкодить ключи и секреты
 - конфигурацию приложений нужно переносить в Ansible, так как terraform не видит изменений и не будет обновлять состояние инфраструктуры
+
+
+Homework Ansible-1
+===
+
+Что сделано:
+- установлен ansible==2.10.7
+- создали файл inventory и inventory.yml
+- определили ansible.cfg
+- проверили подключение к хостам и возможность запуста произвольных команд и использование различных модулей
+- написали плейбук clone.yml
+- зупустили, получили в результате ]appserver: ok=2    changed=0` что означает что репозиторий уже склонирован
+- удалили репозиторий и повторили запуск плейбука, результат `appserver: ok=2    changed=1` - репозиторий был склонирован
+- ДЗ * -> создан скрипт для динамического инвентори
+
+
+ДЗ *
+
+- настроен terraform `local_file` ресурс для сохранения inventory для ансибл в hosts и json формате
+
+```
+# generate inventory file for Ansible
+resource "local_file" "ansible_ready_to_use_inventory" {
+  content = templatefile("../../ansible/tf-inventory.json.tpl",
+    {
+      external_ip_address_app = module.app.external_ip_address_app
+      external_ip_address_db  = module.db.external_ip_address_db
+    }
+  )
+  filename = "../../ansible/tf-inventory.json"
+}
+
+# generate inventory file for Ansible
+resource "local_file" "hosts" {
+  content = templatefile("${path.module}/templates/hosts.tpl",
+    {
+      external_ip_address_app = module.app.external_ip_address_app
+      external_ip_address_db  = module.db.external_ip_address_db
+    }
+  )
+  filename = "../../ansible/hosts"
+}
+
+```
+- для вычитки списка хостов можно использовать либо первый либо второй вариант
+- но для целей обучения создадим скрипт на питоне, который будет парсить json формат и генерировать JSON для динамического запуска
+
+```
+ansible git:(ansible-1) ✗ ansible-inventory --inventory inventory.py --graph
+@all:
+  |--@app:
+  |  |--178.154.221.240
+  |--@db:
+  |  |--178.154.222.87
+  |--@ungrouped:
+```
+
+Хотелось сделать коннектор для Yandex Cloud через yandexcloud библиотеку, но она не ставится на Mac OS Monterey.
