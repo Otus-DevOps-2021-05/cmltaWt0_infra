@@ -327,3 +327,19 @@ ansible git:(ansible-1) ✗ ansible-inventory --inventory inventory.py --graph
 ```
 
 Хотелось сделать коннектор для Yandex Cloud через yandexcloud библиотеку, но она не ставится на Mac OS Monterey.
+
+Homework Ansible-2
+===
+
+Что сделано:
+- проработаны несколько вариантов использования плейбуков
+- изменено создание образов с помощью Packer
+  - созданы packer_db и packer_app
+- убран провижен из Terraform
+- проверен деплой приложения с помощью плейбука site.yml
+- используется dynamic inventory (с прошлого ДЗ)
+- проверен флоу packer build -> terraform apply -> ansible-playbook site.yml
+
+P.S. изменил хендлер на обновления файла /etc/mongod.conf
+    - name: daemon reload
+      service: daemon_reload=true
