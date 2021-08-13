@@ -2,7 +2,7 @@
     "builders": [
         {
             "type": "yandex",
-            "service_account_key_file": "./files/key-{{ user `env` }}.json",
+            "service_account_key_file": "packer/files/key-{{ user `env` }}.json",
             "folder_id": "{{ user `folder_id` }}",
             "subnet_id": "{{ user `subnet_id` }}",
             "zone": "{{ user `zone` }}",
@@ -16,9 +16,8 @@
     ],
     "provisioners": [
         {
-            "type": "shell",
-            "script": "scripts/install_ruby.sh",
-            "execute_command": "sudo {{.Path}}"
+            "type": "ansible",
+            "playbook_file": "ansible/packer_app.yml"
         }
     ]
 }
