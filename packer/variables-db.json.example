@@ -6,5 +6,5 @@
     "source_image_family":      "ubuntu-1604-lts",
     "ssh_username":             "ubuntu",
     "env":                      "dev",
-    "image_family":             "reddit-base"
+    "image_family":             "reddit-base-db"
 }

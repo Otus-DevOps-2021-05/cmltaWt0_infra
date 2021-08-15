@@ -1,0 +1,4 @@
+---
+# handlers file for app
+- name: daemon reload
+  service: daemon_reload=true

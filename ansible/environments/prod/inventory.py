@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import os
 import json
 import argparse
 
@@ -24,7 +24,7 @@ class Inventory(object):
         print(json.dumps(self._inventory))
 
     def get_inventory(self):
-        with open("./tf-inventory.json") as file:
+        with open(f"{os.path.dirname(__file__)}/tf-inventory.json") as file:
             groups = json.load(file)
 
         _all = {

@@ -1,6 +1,6 @@
 ---
 - name: Install mongodb
-  become: True
+  become: true
   hosts: all
 
   tasks:
@@ -32,4 +32,4 @@
       systemd:
         name: mongod
         state: started
-        enabled: yes
+        enabled: true

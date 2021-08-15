@@ -1,0 +1,29 @@
+name: Lint Packer build scripts
+
+on:
+  push:
+    branches-ignore: main
+  pull_request:
+    branches-ignore: main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout this repo
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }}
+    - name: Checkout repo with tests
+      uses: actions/checkout@v2
+      with:
+        repository: "express42/otus-homeworks"
+        ref: 2021-05
+        path: "./otus-homeworks/"
+
+    - name: Run Packer validate app
+      run: packer validate -var-file=packer/variables-app.json.example packer/app.json
+
+    - name: Run Packer validate db
+      run: packer validate -var-file=packer/variables-db.json.example packer/db.json
