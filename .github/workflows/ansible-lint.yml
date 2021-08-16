@@ -1,0 +1,30 @@
+name: Lint Ansible playbooks
+
+on:
+  push:
+    branches-ignore: main
+  pull_request:
+    branches-ignore: main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout this repo
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }}
+    - name: Checkout repo with tests
+      uses: actions/checkout@v2
+      with:
+        repository: "express42/otus-homeworks"
+        ref: 2021-05
+        path: "./otus-homeworks/"
+
+    - name: Ansible lint
+      uses: ansible/ansible-lint-action@master
+      with:
+        targets: "ansible/"
+        options:
+          --exclude=roles/jdauphant.nginx

@@ -1,0 +1,38 @@
+name: Validate terraform scripts
+
+on:
+  push:
+    branches-ignore: main
+  pull_request:
+    branches-ignore: main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout this repo
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }}
+    - name: Checkout repo with tests
+      uses: actions/checkout@v2
+      with:
+        repository: "express42/otus-homeworks"
+        ref: 2021-05
+        path: "./otus-homeworks/"
+
+    - uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.12.25
+
+    - uses: terraform-linters/setup-tflint@v1
+      name: Setup TFLint
+      with:
+        tflint_version: v0.29.0
+
+    - name: Terraform validate stage
+      run: cd terraform/stage && terraform init -backend=false && terraform validate && tflint
+
+    - name: Terraform validate prod
+      run: cd terraform/prod && terraform init -backend=false && terraform validate && tflint

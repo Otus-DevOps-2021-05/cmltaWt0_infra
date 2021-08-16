@@ -9,6 +9,7 @@
     - name: Fetch the latest version of application code
       git:
         repo: 'https://github.com/express42/reddit.git'
+        version: master
         dest: /home/ubuntu/reddit
       tags: deploy-tag
       notify: restart puma

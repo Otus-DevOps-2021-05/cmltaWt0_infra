@@ -6,7 +6,7 @@ resource "local_file" "ansible_ready_to_use_inventory" {
       external_ip_address_db  = module.db.external_ip_address_db
     }
   )
-  filename = "../../ansible/environments/stage/tf-inventory.json"
+  filename = "../../ansible/environments/prod/tf-inventory.json"
 }
 
 # generate inventory file for Ansible
@@ -17,5 +17,5 @@ resource "local_file" "hosts" {
       external_ip_address_db  = module.db.external_ip_address_db
     }
   )
-  filename = "../../ansible/environments/stage/hosts"
+  filename = "../../ansible/environments/prod/hosts"
 }

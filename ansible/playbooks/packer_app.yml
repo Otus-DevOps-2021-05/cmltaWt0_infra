@@ -1,6 +1,6 @@
 ---
 - name: Install ruby
-  become: True
+  become: true
   hosts: all
 
   tasks:
@@ -8,6 +8,6 @@
       apt:
         update_cache: true
         name:
-        - ruby-full
-        - ruby-bundler
-        - build-essential
+          - ruby-full
+          - ruby-bundler
+          - build-essential

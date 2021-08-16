@@ -1,6 +1,11 @@
 # cmltaWt0_infra
 cmltaWt0 Infra repository
 
+![Run tests](https://github.com/Otus-DevOps-2021-05/cmltaWt0_infra/actions/workflows/run-tests.yml/badge.svg)
+![Lint Ansible](https://github.com/Otus-DevOps-2021-05/cmltaWt0_infra/actions/workflows/ansible-lint.yml/badge.svg)
+![Lint Packer](https://github.com/Otus-DevOps-2021-05/cmltaWt0_infra/actions/workflows/packer-lint.yml/badge.svg)
+![Validate Terraform](https://github.com/Otus-DevOps-2021-05/cmltaWt0_infra/actions/workflows/terraform-lint.yml/badge.svg)
+
 Homework Cloud Bastion
 ===
 
@@ -343,3 +348,22 @@ Homework Ansible-2
 P.S. изменил хендлер на обновления файла /etc/mongod.conf
     - name: daemon reload
       service: daemon_reload=true
+
+
+Homework Ansible-3
+===
+
+Что сделано:
+- добавлены роли app, db
+- добавлена роль jdauphant.nginx как зависимость
+- добавлены переменные для роли nginx
+- добавлены окружения
+- работа с переменными
+- очишен репозиторий
+- изменены конфиги packer и terraform
+- добавлен бейджи статусов
+  - воркфлоу разнесены по отдельным файлам
+- добавлены тесты для ansible, packer, terraform
+- добавлен nix конфиг для разработки
+- добавлен vscode конфиг
+- добавлена работа с ansible vault, создан и проверен playbook users.yml и шифрование конфигурации в credentials.yml
