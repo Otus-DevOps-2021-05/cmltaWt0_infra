@@ -1,0 +1,29 @@
+- name: install system packages
+  apt:
+    update_cache: true
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+
+- name: add the mongodb signing key
+  apt_key:
+    url: "https://www.mongodb.org/static/pgp/server-4.2.asc"
+    state: present
+  retries: 3
+
+- name: add the mongodb repo to the sources list
+  apt_repository:
+    repo: "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.2 multiverse"
+    state: present
+
+- name: install mongo server
+  apt:
+    update_cache: true
+    name: mongodb-org
+    state: present
+
+- name: enable mongodb
+  systemd:
+    name: mongod
+    state: started
+    enabled: true

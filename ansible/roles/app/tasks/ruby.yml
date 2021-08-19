@@ -1,0 +1,7 @@
+- name: install ruby related packages
+  apt:
+    update_cache: true
+    name:
+      - ruby-full
+      - ruby-bundler
+      - build-essential
